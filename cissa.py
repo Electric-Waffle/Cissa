@@ -65,6 +65,13 @@ class Plateau:
         
         self.plateau = plateau
 
+    def remplace_par_tableau_basique(self):
+        self.plateau = [
+            [1,2,3],
+            [4,5,6],
+            [7,8,9],
+        ]
+
     def affiche_plateau(self):
         for i in range(0, len(self.plateau)):
 
@@ -280,90 +287,6 @@ class Equipe(NotesMixin):
 # possessions
 # notes joueur
 
-
-try:
-    plateau_de_jeu = Plateau()
-    plateau_de_jeu.affiche_plateau()
-
-    evenement_1 = Evenement(1,"nom_test","description_test")
-    evenement_1.ajoute_note("Note 1")
-    evenement_1.ajoute_note("Note 2")
-    print(f"numero_event : {evenement_1.get_numero()}\n")
-    print(f"nom_event : {evenement_1.get_nom()}\n")
-    print(f"description_event : {evenement_1.get_description()}\n")
-    print("notes_event :")
-    for note in evenement_1.get_notes():
-        print(f" - {note}")
-    EntreePourContinuer()
-
-    scripteur_1 = Scripteur("scripteur", 2)
-    scripteur_1.ajoute_note("Note 1")
-    scripteur_1.ajoute_note("Note 2")
-    scripteur_1.ajoute_etat("Etat 1")
-    scripteur_1.ajoute_possession("Objet 1")
-    scripteur_1.ajoute_possession("Objet 2")
-    print(f"nom_scripteur : {scripteur_1.get_nom()}\n")
-    print(f"type_scripteur : {scripteur_1.get_type_decryption()}\n")
-    print("etats_scripteur :")
-    for etat in scripteur_1.get_etats():
-        print(f" - {etat}")
-    print("possessions_scripteur :")
-    for objet in scripteur_1.get_possessions():
-        print(f" - {objet}")
-    print("notes_scripteur :")
-    for note in scripteur_1.get_notes():
-        print(f" - {note}")
-    EntreePourContinuer()
-
-    solveur_1 = Solveur("solveur")
-    solveur_1.ajoute_note("Note 1")
-    solveur_1.ajoute_note("Note 2")
-    solveur_1.ajoute_etat("Etat 1")
-    solveur_1.ajoute_possession("Objet 1")
-    solveur_1.ajoute_possession("Objet 2")
-    solveur_1.ajoute_handicap("Force")
-    solveur_1.ajoute_handicap("Charisme")
-    solveur_1.ajoute_avantage("Intelligence")
-    solveur_1.ajoute_avantage("Mentalité")
-    print(f"nom_solveur : {solveur_1.get_nom()}\n")
-    print("avantages_solveur :")
-    for avantage in solveur_1.get_avantage():
-        print(f" - {avantage}")
-    print("handicaps_solveur :")
-    for handicap in solveur_1.get_handicap():
-        print(f" - {handicap}")
-    print("etats_solveur :")
-    for etat in solveur_1.get_etats():
-        print(f" - {etat}")
-    print("possessions_solveur :")
-    for objet in solveur_1.get_possessions():
-        print(f" - {objet}")
-    print("notes_solveur :")
-    for note in solveur_1.get_notes():
-        print(f" - {note}")
-    EntreePourContinuer()
-
-    equipe_1 = Equipe("nom_equipe_1", solveur_1, scripteur_1)
-    equipe_1.solveur.ajoute_avantage("Avantage en plus")
-    equipe_1.scripteur.ajoute_note("Note en plus")
-    print(f"Equipe {equipe_1.get_nom()}")
-    print(f"solveur : {equipe_1.solveur.get_nom()}")
-    print("avantages_solveur :")
-    for avantage in equipe_1.solveur.get_avantage():
-        print(f" - {avantage}")
-    print(f"scripteur : {equipe_1.scripteur.get_nom()}")
-    print("notes_scripteur :")
-    for note in equipe_1.scripteur.get_notes():
-        print(f" - {note}")
-    EntreePourContinuer()
-    
-except Exception as error:
-    WriteErrorInErrorLog(error)
-
-# TODO
-
-
-
 # création des équipes
 # nom
 # position x et y
@@ -371,3 +294,91 @@ except Exception as error:
 # notes equipe
 # solveur
 # scripteur
+
+DEBUG_DEBUT = 1
+
+if DEBUG_DEBUT:
+    try:
+        plateau_de_jeu = Plateau(True)
+        plateau_de_jeu.remplace_par_tableau_basique()
+        plateau_de_jeu.affiche_plateau()
+
+        evenement_1 = Evenement(1,"nom_test","description_test")
+        evenement_1.ajoute_note("Note 1")
+        evenement_1.ajoute_note("Note 2")
+        print(f"numero_event : {evenement_1.get_numero()}\n")
+        print(f"nom_event : {evenement_1.get_nom()}\n")
+        print(f"description_event : {evenement_1.get_description()}\n")
+        print("notes_event :")
+        for note in evenement_1.get_notes():
+            print(f" - {note}")
+        EntreePourContinuer()
+
+        scripteur_1 = Scripteur("scripteur", 2)
+        scripteur_1.ajoute_note("Note 1")
+        scripteur_1.ajoute_note("Note 2")
+        scripteur_1.ajoute_etat("Etat 1")
+        scripteur_1.ajoute_possession("Objet 1")
+        scripteur_1.ajoute_possession("Objet 2")
+        print(f"nom_scripteur : {scripteur_1.get_nom()}\n")
+        print(f"type_scripteur : {scripteur_1.get_type_decryption()}\n")
+        print("etats_scripteur :")
+        for etat in scripteur_1.get_etats():
+            print(f" - {etat}")
+        print("possessions_scripteur :")
+        for objet in scripteur_1.get_possessions():
+            print(f" - {objet}")
+        print("notes_scripteur :")
+        for note in scripteur_1.get_notes():
+            print(f" - {note}")
+        EntreePourContinuer()
+
+        solveur_1 = Solveur("solveur")
+        solveur_1.ajoute_note("Note 1")
+        solveur_1.ajoute_note("Note 2")
+        solveur_1.ajoute_etat("Etat 1")
+        solveur_1.ajoute_possession("Objet 1")
+        solveur_1.ajoute_possession("Objet 2")
+        solveur_1.ajoute_handicap("Force")
+        solveur_1.ajoute_handicap("Charisme")
+        solveur_1.ajoute_avantage("Intelligence")
+        solveur_1.ajoute_avantage("Mentalité")
+        print(f"nom_solveur : {solveur_1.get_nom()}\n")
+        print("avantages_solveur :")
+        for avantage in solveur_1.get_avantage():
+            print(f" - {avantage}")
+        print("handicaps_solveur :")
+        for handicap in solveur_1.get_handicap():
+            print(f" - {handicap}")
+        print("etats_solveur :")
+        for etat in solveur_1.get_etats():
+            print(f" - {etat}")
+        print("possessions_solveur :")
+        for objet in solveur_1.get_possessions():
+            print(f" - {objet}")
+        print("notes_solveur :")
+        for note in solveur_1.get_notes():
+            print(f" - {note}")
+        EntreePourContinuer()
+
+        equipe_1 = Equipe("nom_equipe_1", solveur_1, scripteur_1)
+        equipe_1.solveur.ajoute_avantage("Avantage en plus")
+        equipe_1.scripteur.ajoute_note("Note en plus")
+        print(f"Equipe {equipe_1.get_nom()}")
+        print(f"solveur : {equipe_1.solveur.get_nom()}")
+        print("avantages_solveur :")
+        for avantage in equipe_1.solveur.get_avantage():
+            print(f" - {avantage}")
+        print(f"scripteur : {equipe_1.scripteur.get_nom()}")
+        print("notes_scripteur :")
+        for note in equipe_1.scripteur.get_notes():
+            print(f" - {note}")
+        EntreePourContinuer()
+        
+    except Exception as error:
+        WriteErrorInErrorLog(error)
+
+# TODO
+# evenements (9)
+# menu titre chargement ou nouvelle partie
+# menus equipe>evenement>equipe>evenement>tour>sauvegarde
