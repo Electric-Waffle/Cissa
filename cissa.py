@@ -39,7 +39,14 @@ def WriteErrorInErrorLog(erreur):
     
 class Plateau:
 
-    def __init__(self):
+    def __init__(self, taille=8):
+        if taille > 9:
+            self.taille = 9
+        elif taille < 3:
+            self.taille = 3
+        else:
+            self.taille = taille
+
         plateau = []
         nombres_possibles = []
 
@@ -47,10 +54,10 @@ class Plateau:
         nombres_possibles = list(range(100)) 
         
         # utilisation du tableau de nombres possibles pour remplissage du plateau
-        for numero_ligne in range(0, 9):
+        for numero_ligne in range(0, self.taille):
             ligne = []
 
-            for position_du_numero_dans_la_ligne in range(0, 9):
+            for position_du_numero_dans_la_ligne in range(0, self.taille):
                 position_aleatoire = random.randint(0, (len(nombres_possibles) - 1))
                 ligne.append(nombres_possibles.pop(position_aleatoire))
 
@@ -94,7 +101,7 @@ class Evenement(NotesMixin):
         self.numero = int(numero)
         self.nom = nom
         self.description = description
-        self.notes = []
+        super().__init__()  # appel à NotesMixin.__init__
 
     def get_nom(self):
         return self.nom
@@ -110,8 +117,8 @@ class Joueur(NotesMixin):
     def __init__(self, nom):
         self.nom = nom
         self.possessions = []
-        self.notes = []
         self.etat = []
+        super().__init__()  # appel à NotesMixin.__init__
 
     def get_nom(self):
         return self.nom
@@ -142,15 +149,15 @@ class Joueur(NotesMixin):
 
 class Scripteur(Joueur):
 
-    def __init__(self, nom, type):
+    def __init__(self, nom, type_decryption):
         super().__init__(nom)
-        self.type = int(type)
+        self.type_decryption = int(type_decryption)
 
-    def get_type(self):
-        return self.type
+    def get_type_decryption(self):
+        return self.type_decryption
 
-    def set_type(self, type):
-        self.type = int(type)
+    def set_type_decryption(self, type_decryption):
+        self.type_decryption = int(type_decryption)
 
 class Solveur(Joueur):
 
@@ -184,6 +191,69 @@ class Solveur(Joueur):
         self.handicap = []
 
 
+class Equipe(NotesMixin):
+
+    def __init__(self, nom, solveur, scripteur):
+        self.nom = nom
+        self.points_gloire = 0
+        self.gold = 0
+        self.position_x = 0
+        self.position_y = 0
+        self.solveur = solveur
+        self.scripteur = scripteur
+        super().__init__()  # appel à NotesMixin.__init__
+
+    def get_nom(self):
+        return self.nom
+
+    def get_gloire(self):
+        return self.points_gloire
+
+    def ajoute_gloire(self, points):
+        self.points_gloire += points
+
+    def diminue_gloire(self, points):
+        self.points_gloire -= points
+
+        if self.points_gloire < 0:
+            self.points_gloire = 0
+
+    def set_gloire(self, points):
+        self.points_gloire = points
+
+    def get_gold(self):
+        return self.gold
+
+    def ajoute_gold(self, golds):
+        self.gold += golds
+
+    def diminue_gold(self, golds):
+        self.gold -= golds
+
+        if self.gold < 0:
+            self.gold = 0
+
+    def set_gold(self, golds):
+        self.gold = golds
+
+    def get_position_x(self):
+        return self.position_x
+    
+    def set_position_x(self, position_x):
+        self.position_x = position_x
+    
+    def get_position_y(self):
+        return self.position_y
+    
+    def set_position_y(self, position_y):
+        self.position_y = position_y
+
+    def set_position(self, position_x, position_y):
+        if 0 <= position_x <= 8 and 0 <= position_y <= 8:
+            self.set_position_x(position_x)
+            self.set_position_y(position_y)
+    
+
 
 
 # DONE
@@ -198,6 +268,15 @@ class Solveur(Joueur):
 # création du solveur
 # etat
 # type
+# possessions
+# notes joueur
+
+# création du scripteur
+# etat
+# type
+# possessions
+# notes joueur
+# etat
 # possessions
 # notes joueur
 
@@ -224,7 +303,7 @@ try:
     scripteur_1.ajoute_possession("Objet 1")
     scripteur_1.ajoute_possession("Objet 2")
     print(f"nom_scripteur : {scripteur_1.get_nom()}\n")
-    print(f"type_scripteur : {scripteur_1.get_type()}\n")
+    print(f"type_scripteur : {scripteur_1.get_type_decryption()}\n")
     print("etats_scripteur :")
     for etat in scripteur_1.get_etats():
         print(f" - {etat}")
@@ -263,6 +342,20 @@ try:
     for note in solveur_1.get_notes():
         print(f" - {note}")
     EntreePourContinuer()
+
+    equipe_1 = Equipe("nom_equipe_1", solveur_1, scripteur_1)
+    equipe_1.solveur.ajoute_avantage("Avantage en plus")
+    equipe_1.scripteur.ajoute_note("Note en plus")
+    print(f"Equipe {equipe_1.get_nom()}")
+    print(f"solveur : {equipe_1.solveur.get_nom()}")
+    print("avantages_solveur :")
+    for avantage in equipe_1.solveur.get_avantage():
+        print(f" - {avantage}")
+    print(f"scripteur : {equipe_1.scripteur.get_nom()}")
+    print("notes_scripteur :")
+    for note in equipe_1.scripteur.get_notes():
+        print(f" - {note}")
+    EntreePourContinuer()
     
 except Exception as error:
     WriteErrorInErrorLog(error)
@@ -271,17 +364,9 @@ except Exception as error:
 
 
 
-# création du scripteur
-# etat
-# type
-# possessions
-# notes joueur
-# etat
-# possessions
-# notes joueur
-
 # création des équipes
-# position
+# nom
+# position x et y
 # points
 # notes equipe
 # solveur
