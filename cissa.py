@@ -68,20 +68,68 @@ class Plateau:
             print("")
         EntreePourContinuer()
 
+class Evenement:
 
+    def __init__(self, numero, nom, description):
+        self.numero = int(numero)
+        self.nom = nom
+        self.description = description
+        self.notes = []
+
+    def ajout_notes(self, note):
+        self.notes.append(note)
+
+    def get_nom(self):
+        return self.nom
+
+    def get_numero(self):
+        return self.numero
+
+    def get_description(self):
+        return self.description
+
+    def get_notes(self):
+        return self.notes
+    
+    def ajoute_note(self, note):
+        self.notes.append(note)
+
+    def supprime_note(self, position_note):
+        self.notes.pop(position_note)
+
+    def nettoie_note(self):
+        self.notes = []
+
+
+# DONE
 
 # création du plateau
 # affectation d'un nombre random allant de 0 à 99 (jamais deux fois le même) sur chaque cases du plateau
-try:
-    plateau_de_jeu = Plateau()
-    plateau_de_jeu.affiche_plateau()
-except Exception as error:
-    WriteErrorInErrorLog(error)
-
 
 # création des évènements
 # description
 # notes
+
+
+try:
+    plateau_de_jeu = Plateau()
+    plateau_de_jeu.affiche_plateau()
+
+    evenement_1 = Evenement(1,"nom_test","description_test")
+    evenement_1.ajout_notes("Note 1")
+    evenement_1.ajout_notes("Note 2")
+    print(f"numero_event : {evenement_1.get_numero()}\n")
+    print(f"nom_event : {evenement_1.get_nom()}\n")
+    print(f"description_event : {evenement_1.get_description()}\n")
+    print("notes_event :")
+    for note in evenement_1.get_notes():
+        print(f" - {note}")
+    EntreePourContinuer()
+    
+except Exception as error:
+    WriteErrorInErrorLog(error)
+
+# TODO
 
 # création du solveur
 # effet
