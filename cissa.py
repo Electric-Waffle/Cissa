@@ -76,9 +76,6 @@ class Evenement:
         self.description = description
         self.notes = []
 
-    def ajout_notes(self, note):
-        self.notes.append(note)
-
     def get_nom(self):
         return self.nom
 
@@ -100,6 +97,57 @@ class Evenement:
     def nettoie_note(self):
         self.notes = []
 
+class Solveur:
+
+    def __init__(self, nom, type):
+        self.nom = nom
+        self.type = type
+        self.possessions = []
+        self.notes = []
+        self.etat = []
+
+    def get_nom(self):
+        return self.nom
+
+    def get_type(self):
+        return self.type
+
+    def get_possessions(self):
+        return self.possessions
+    
+    def ajoute_possession(self, possession):
+        self.possessions.append(possession)
+
+    def supprime_possession(self, position_objet):
+        self.possessions.pop(position_objet)
+
+    def nettoie_possession(self):
+        self.possessions = []
+
+    def get_notes(self):
+        return self.notes
+    
+    def ajoute_note(self, note):
+        self.notes.append(note)
+
+    def supprime_note(self, position_note):
+        self.notes.pop(position_note)
+
+    def nettoie_note(self):
+        self.notes = []
+
+    def get_etats(self):
+        return self.etat
+    
+    def ajoute_etat(self, etat):
+        self.etat.append(etat)
+
+    def supprime_etat(self, position_etat):
+        self.etat.pop(position_etat)
+
+    def nettoie_etat(self):
+        self.etat = []
+
 
 # DONE
 
@@ -116,13 +164,32 @@ try:
     plateau_de_jeu.affiche_plateau()
 
     evenement_1 = Evenement(1,"nom_test","description_test")
-    evenement_1.ajout_notes("Note 1")
-    evenement_1.ajout_notes("Note 2")
+    evenement_1.ajoute_note("Note 1")
+    evenement_1.ajoute_note("Note 2")
     print(f"numero_event : {evenement_1.get_numero()}\n")
     print(f"nom_event : {evenement_1.get_nom()}\n")
     print(f"description_event : {evenement_1.get_description()}\n")
     print("notes_event :")
     for note in evenement_1.get_notes():
+        print(f" - {note}")
+    EntreePourContinuer()
+
+    solveur_1 = Solveur("solveur", 2)
+    solveur_1.ajoute_note("Note 1")
+    solveur_1.ajoute_note("Note 2")
+    solveur_1.ajoute_etat("Etat 1")
+    solveur_1.ajoute_possession("Objet 1")
+    solveur_1.ajoute_possession("Objet 2")
+    print(f"nom_solveur : {solveur_1.get_nom()}\n")
+    print(f"type_solveur : {solveur_1.get_type()}\n")
+    print("etats_solveur :")
+    for etat in solveur_1.get_etats():
+        print(f" - {etat}")
+    print("possessions_solveur :")
+    for objet in solveur_1.get_possessions():
+        print(f" - {objet}")
+    print("notes_solveur :")
+    for note in solveur_1.get_notes():
         print(f" - {note}")
     EntreePourContinuer()
     
@@ -132,12 +199,13 @@ except Exception as error:
 # TODO
 
 # création du solveur
-# effet
+# etat
+# type
 # possessions
 # notes joueur
 
 # création du scripteur
-# effet
+# etat
 # possessions
 # notes joueur
 
